@@ -13,4 +13,8 @@ public class IndexController {
   public String indexFunction(Model model){
     return "index";
   }
+  @RequestMapping("/collaborators")
+  public String projects(Model model){
+    return "collaborators";
+  }
 }

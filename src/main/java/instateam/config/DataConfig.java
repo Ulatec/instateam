@@ -22,7 +22,7 @@ public class DataConfig {
   private Environment env;
 
   @Bean
-  public LocalSessionFactoryBean buildSessionFactory(){
+  public LocalSessionFactoryBean sessionFactory(){
     Resource configurationLocation = new ClassPathResource("hibernate.cfg.xml");
     LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
     sessionFactory.setConfigLocation(configurationLocation);
