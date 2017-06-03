@@ -18,29 +18,30 @@ import javax.sql.DataSource;
 @Configuration
 @PropertySource("app.properties")
 public class DataConfig {
+
   @Autowired
   private Environment env;
 
   @Bean
   public LocalSessionFactoryBean sessionFactory(){
-    Resource configurationLocation = new ClassPathResource("hibernate.cfg.xml");
+    Resource config = new ClassPathResource("hibernate.cfg.xml");
     LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-    sessionFactory.setConfigLocation(configurationLocation);
-    sessionFactory.setPackagesToScan(env.getProperty("instateam.packageName"));
+    sessionFactory.setConfigLocation(config);
+    sessionFactory.setPackagesToScan(env.getProperty("instateam.entity.package"));
     sessionFactory.setDataSource(dataSource());
     return sessionFactory;
   }
   @Bean
   public DataSource dataSource(){
-    BasicDataSource basicDataSource = new BasicDataSource();
+    BasicDataSource ds = new BasicDataSource();
     // Driver class name
-    basicDataSource.setDriverClassName(env.getProperty("instateam.db.driver"));
+    ds.setDriverClassName(env.getProperty("instateam.db.driver"));
     // Set URL
-    basicDataSource.setUrl(env.getProperty("instateam.db.url"));
+    ds.setUrl(env.getProperty("instateam.db.url"));
     // Set username & password
-    basicDataSource.setUsername(env.getProperty("instateam.db.username"));
-    basicDataSource.setPassword(env.getProperty("instateam.db.password"));
+    ds.setUsername(env.getProperty("instateam.db.username"));
+    ds.setPassword(env.getProperty("instateam.db.password"));
 
-    return basicDataSource;
+    return ds;
   }
 }
