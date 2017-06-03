@@ -1,14 +1,15 @@
-package instateam.dao;
+package instateam.service;
+
+import org.springframework.context.annotation.PropertySource;
 
 import java.util.List;
 import instateam.model.Project;
 
 /**
- * Created by mark on 5/31/2017.
+ * Created by mark on 6/3/2017.
  */
-public interface ProjectDao {
+public interface ProjectService {
   List<Project> findAll();
-  Project findById(Long id);
   void save(Project project);
   void delete(Project project);
 }

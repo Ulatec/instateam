@@ -1,20 +1,16 @@
-package instateam.dao;
+package instateam.service;
+
+
 
 import java.util.List;
 import instateam.model.Project;
 
 /**
- * Created by mark on 5/31/2017.
+ * Created by mark on 6/3/2017.
  */
-public class ProjectDaoImpl implements ProjectDao{
-
+public class ProjectServiceImpl implements ProjectService {
   @Override
   public List<Project> findAll() {
-    return null;
-  }
-
-  @Override
-  public Project findById(Long id) {
     return null;
   }
 

@@ -13,12 +13,11 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import javax.sql.DataSource;
 
 /**
- * Created by mark on 5/31/2017.
+ * Created by mark on 5/11/2017.
  */
 @Configuration
 @PropertySource("app.properties")
 public class DataConfig {
-
   @Autowired
   private Environment env;
 
@@ -31,8 +30,9 @@ public class DataConfig {
     sessionFactory.setDataSource(dataSource());
     return sessionFactory;
   }
+
   @Bean
-  public DataSource dataSource(){
+  public DataSource dataSource() {
     BasicDataSource ds = new BasicDataSource();
     // Driver class name
     ds.setDriverClassName(env.getProperty("instateam.db.driver"));
@@ -44,4 +44,5 @@ public class DataConfig {
 
     return ds;
   }
+
 }
