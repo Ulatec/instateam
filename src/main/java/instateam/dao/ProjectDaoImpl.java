@@ -15,22 +15,25 @@ public class ProjectDaoImpl implements ProjectDao{
   @Autowired
   private SessionFactory sessionFactory;
   @Override
+  @SuppressWarnings("unchecked")
   public List<Project> findAll() {
     Session session = sessionFactory.openSession();
-
+    List<Project> categories = session.createCriteria(Project.class).list();
     session.close();
-    return null;
+    return categories;
   }
 
   @Override
   public Project findById(Long id) {
     Session session = sessionFactory.openSession();
-    return null;
+    Project project = session.get(Project.class, id);
+    session.close();
+    return project;
   }
 
   @Override
   public void save(Project project) {
-    sessionFactory.openSession();
+    Session session = sessionFactory.openSession();
   }
 
   @Override
