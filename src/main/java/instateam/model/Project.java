@@ -18,7 +18,7 @@ public class Project {
   @NotNull
   private String name;
 
-  private boolean status;
+  private String status;
 
 
   public Long getId() {
@@ -37,11 +37,11 @@ public class Project {
     this.name = name;
   }
 
-  public boolean isStatus() {
+  public String getStatus() {
     return status;
   }
 
-  public void setStatus(boolean status) {
+  public void setStatus(String status) {
     this.status = status;
   }
 
