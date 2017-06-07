@@ -26,7 +26,7 @@ public class DataConfig {
     Resource config = new ClassPathResource("hibernate.cfg.xml");
     LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
     sessionFactory.setConfigLocation(config);
-    sessionFactory.setPackagesToScan(env.getProperty("giflib.entity.package"));
+    sessionFactory.setPackagesToScan(env.getProperty("instateam.entity.package"));
     sessionFactory.setDataSource(dataSource());
     return sessionFactory;
   }
@@ -35,12 +35,12 @@ public class DataConfig {
   public DataSource dataSource() {
     BasicDataSource ds = new BasicDataSource();
     // Driver class name
-    ds.setDriverClassName(env.getProperty("giflib.db.driver"));
+    ds.setDriverClassName(env.getProperty("instateam.db.driver"));
     // Set URL
-    ds.setUrl(env.getProperty("giflib.db.url"));
+    ds.setUrl(env.getProperty("instateam.db.url"));
     // Set username & password
-    ds.setUsername(env.getProperty("giflib.db.username"));
-    ds.setPassword(env.getProperty("giflib.db.password"));
+    ds.setUsername(env.getProperty("instateam.db.username"));
+    ds.setPassword(env.getProperty("instateam.db.password"));
 
     return ds;
   }

@@ -1,5 +1,7 @@
 package instateam.dao;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import instateam.model.Project;
 

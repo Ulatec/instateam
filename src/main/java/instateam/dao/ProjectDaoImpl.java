@@ -1,5 +1,7 @@
 package instateam.dao;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import instateam.model.Project;
 import org.hibernate.Session;
@@ -11,7 +13,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 /**
  * Created by mark on 5/31/2017.
  */
+@Repository
 public class ProjectDaoImpl implements ProjectDao{
+
   @Autowired
   private SessionFactory sessionFactory;
   @Override

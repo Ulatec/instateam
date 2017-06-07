@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Pattern;
 
 /**
  * Created by mark on 6/3/2017.
@@ -13,6 +14,6 @@ public class Role {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
+  @Pattern(regexp = "[0-9a-zA-Z]{18}")
   private String name;
 }

@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-import instateam.model.Project;
+
 
 /**
  * Created by mark on 5/31/2017.
@@ -19,7 +19,7 @@ public class Collaborator {
   @NotNull
   private String name;
   @ManyToOne
-  private Project project;
+  private Role role;
 
   public Long getId() {
     return id;
@@ -37,11 +37,11 @@ public class Collaborator {
     this.name = name;
   }
 
-  public Project getProject() {
-    return project;
+  public Role getRole() {
+    return role;
   }
 
-  public void setProject(Project project) {
-    this.project = project;
+  public void setRole(Role role) {
+    this.role = role;
   }
 }
