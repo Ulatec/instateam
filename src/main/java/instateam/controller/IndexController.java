@@ -43,4 +43,8 @@ public class IndexController {
     projectService.save(project);
     return "redirect:/";
   }
+  @RequestMapping(value="/project/name")
+  public String projectDetails(){
+    return "project_detail";
+  }
 }
