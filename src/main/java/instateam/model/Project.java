@@ -18,8 +18,15 @@ public class Project {
   @NotNull
   private String name;
 
+  @NotNull
+  private String description;
+
+
+
   private String status;
 
+
+  public Project(){}
 
   public Long getId() {
     return id;
@@ -45,5 +52,11 @@ public class Project {
     this.status = status;
   }
 
+  public String getDescription() {
+    return description;
+  }
 
+  public void setDescription(String description) {
+    this.description = description;
+  }
 }
