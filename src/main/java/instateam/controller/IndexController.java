@@ -14,9 +14,7 @@ import javax.validation.Valid;
 import instateam.model.Project;
 import instateam.service.ProjectService;
 
-/**
- * Created by mark on 5/31/2017.
- */
+
 @Controller
 public class IndexController {
   @Autowired
