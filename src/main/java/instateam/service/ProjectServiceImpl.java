@@ -21,6 +21,10 @@ public class ProjectServiceImpl implements ProjectService {
     return projectDao.findAll();
   }
 
+  public Project findById(Long id){
+    return projectDao.findById(id);
+  }
+
   @Override
   public void save(Project project) {
     projectDao.save(project);

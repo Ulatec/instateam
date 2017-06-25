@@ -11,7 +11,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import javax.validation.Valid;
+import instateam.model.Collaborator;
 import instateam.model.Project;
+import instateam.service.CollaboratorService;
 import instateam.service.ProjectService;
 
 
@@ -19,6 +21,8 @@ import instateam.service.ProjectService;
 public class IndexController {
   @Autowired
   private ProjectService projectService;
+  @Autowired
+  private CollaboratorService collaboratorService;
 
   @RequestMapping("/")
   public String indexFunction(Model model){
@@ -35,6 +39,7 @@ public class IndexController {
     if(!model.containsAttribute("project")){
       model.addAttribute("project", new Project());
     }
+    model.addAttribute("submit", "Add");
     return "edit_project";
   }
   @RequestMapping(value = "/projects/add", method = RequestMethod.POST)
@@ -43,10 +48,12 @@ public class IndexController {
     return "redirect:/";
   }
   @RequestMapping("/project/{projectId}/edit")
-  public String editProject(@PathVariable Long projectId){
-
-
-    return "redirect:/";
+  public String editProject(@PathVariable Long projectId, Model model){
+    if(!model.containsAttribute("project")){
+      model.addAttribute("project", projectService.findById(projectId));
+    }
+    model.addAttribute("submit", "Update");
+    return "edit_project";
   }
 
 }
