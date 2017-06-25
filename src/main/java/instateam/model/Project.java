@@ -1,10 +1,9 @@
 package instateam.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mark on 5/31/2017.
@@ -18,14 +17,13 @@ public class Project {
   @NotNull
   private String name;
 
+  @ManyToMany
+  private List<Role> rolesNeeded = new ArrayList<>();
+
   @NotNull
   private String description;
 
-
-
   private String status;
-
- private String description;
 
   public String getDescription() {
     return description;
@@ -61,11 +59,11 @@ public class Project {
     this.status = status;
   }
 
-  public String getDescription() {
-    return description;
-  }
+    public List<Role> getRolesNeeded() {
+        return rolesNeeded;
+    }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public void setRolesNeeded(List<Role> rolesNeeded) {
+        this.rolesNeeded = rolesNeeded;
+    }
 }
