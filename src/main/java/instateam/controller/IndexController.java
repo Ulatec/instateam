@@ -44,6 +44,7 @@ public class IndexController {
   }
   @RequestMapping(value = "/projects/add", method = RequestMethod.POST)
   public String addProject(@Valid Project project, BindingResult bindingResult, RedirectAttributes attributes){
+    System.out.println("save");
     projectService.save(project);
     return "redirect:/";
   }
