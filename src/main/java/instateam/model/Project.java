@@ -20,6 +20,9 @@ public class Project {
   @ManyToMany
   private List<Role> rolesNeeded = new ArrayList<>();
 
+  @ManyToMany
+  private List<Collaborator> collaborators = new ArrayList<>();
+  
   @NotNull
   private String description;
 

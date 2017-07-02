@@ -53,6 +53,7 @@ public class IndexController {
     if(!model.containsAttribute("project")){
       model.addAttribute("project", projectService.findById(projectId));
     }
+    model.addAttribute("collaborators", collaboratorService.findAll());
     model.addAttribute("submit", "Update");
     return "edit_project";
   }

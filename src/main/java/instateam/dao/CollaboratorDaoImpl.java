@@ -2,10 +2,12 @@ package instateam.dao;
 
 import java.util.List;
 import instateam.model.Collaborator;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created by mark on 6/6/2017.
  */
+@Repository
 public class CollaboratorDaoImpl implements CollaboratorDao{
 
   @Override
