@@ -16,17 +16,17 @@ public class CollaboratorServiceImpl implements CollaboratorService{
     private CollaboratorDao collaboratorDao;
     @Override
     public List<Collaborator> findAll() {
-        return null;
-    }
-
-    @Override
-    public Collaborator findById(Long id) {
         return collaboratorDao.findAll();
     }
 
     @Override
-    public void save(Collaborator collaborator) {
+    public Collaborator findById(Long id) {
+        return collaboratorDao.findById(id);
+    }
 
+    @Override
+    public void save(Collaborator collaborator) {
+        collaboratorDao.save(collaborator);
     }
 
     @Override

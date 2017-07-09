@@ -2,6 +2,9 @@ package instateam.dao;
 
 import java.util.List;
 import instateam.model.Collaborator;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,20 +12,31 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class CollaboratorDaoImpl implements CollaboratorDao{
-
+  @Autowired
+  private SessionFactory sessionFactory;
   @Override
   public List<Collaborator> findAll() {
-    return null;
+    Session session = sessionFactory.openSession();
+    List<Collaborator> collaborators = session.createCriteria(Collaborator.class).list();
+    session.close();
+    return collaborators;
   }
 
   @Override
   public Collaborator findById(Long id) {
-    return null;
+    Session session = sessionFactory.openSession();
+    Collaborator collaborator = session.get(Collaborator.class, id);
+    session.close();
+    return collaborator;
   }
 
   @Override
   public void save(Collaborator collaborator) {
-
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    session.save(collaborator);
+    session.getTransaction().commit();
+    session.close();
   }
 
   @Override

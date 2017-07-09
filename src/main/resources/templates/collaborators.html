@@ -19,11 +19,12 @@
         </nav>
         <section>
             <div class="container wrapper">
-                <form>
+                <form method="post" th:object="${collaborator}">
                     <h2>Manage Collaborators</h2>
                     <ul th:each="collaborator : ${collaborators}" class="checkbox-list">
                         <li>
-                            <span class="primary">Michael Pemulius</span>
+                            <!--<span class="primary" th:text="${collaborator.name}">Michael Pemulius</span>-->
+                            <a th:href="@{|/collaborators/${collaborator.id}/edit|}" th:text="${collaborator.name}">Collaborator</a>
                             <div class="custom-select">
                                 <span class="dropdown-arrow"></span>
                                 <select>
@@ -34,36 +35,12 @@
                                 </select>
                             </div>
                         </li>
-                        <li>
-                            <span class="primary">Don Gately</span>
-                            <div class="custom-select">
-                                <span class="dropdown-arrow"></span>
-                                <select>
-                                    <option value="#">Designer</option>
-                                    <option value="#" selected="true" >Developer</option>
-                                    <option value="#">QA</option>
-                                    <option value="#">DevOps</option>
-                                </select>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="primary">Joelle Van Dyne</span>
-                            <div class="custom-select">
-                                <span class="dropdown-arrow"></span>
-                                <select>
-                                    <option value="#">Designer</option>
-                                    <option value="#">Developer</option>
-                                    <option value="#" selected="true">QA</option>
-                                    <option value="#">DevOps</option>
-                                </select>
-                            </div>
-                        </li>
                     </ul>
                     <div class="actions add-new-collaborator">
-                        <input type="text" placeholder="Name..."/>
+                        <input type="text" th:field="*{name}" placeholder="Name..."/>
                         <div class="custom-select">
                             <span class="dropdown-arrow"></span>
-                            <select>
+                            <select th:field="*{role}">
                                 <option value="#" disabled="true" selected="true">Role...</option>
                                 <option value="#">Developer</option>
                                 <option value="#">Designer</option>
@@ -72,7 +49,7 @@
                                 <option value="#">Copywriter</option>
                             </select>
                         </div>
-                        <a class="button" href="#">Add</a>
+                        <button type="submit" class="button" value="Save">Add</button>
                     </div>
                 </form>
             </div>

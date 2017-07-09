@@ -32,7 +32,17 @@ public class IndexController {
   }
   @RequestMapping("/collaborators")
   public String projects(Model model){
+    if(!model.containsAttribute("collaborator")){
+      model.addAttribute("collaborator", new Collaborator());
+    }
+    model.addAttribute("collaborators", collaboratorService.findAll());
     return "collaborators";
+  }
+
+  @RequestMapping(value = "/collaborators", method = RequestMethod.POST)
+  public String addCollaborator(@Valid Collaborator collaborator, BindingResult bindingResult, RedirectAttributes attributes){
+    collaboratorService.save(collaborator);
+    return "redirect:/";
   }
   @RequestMapping("/projects/add")
   public String formNewProject(Model model){
@@ -57,5 +67,9 @@ public class IndexController {
     model.addAttribute("submit", "Update");
     return "edit_project";
   }
-
+  @RequestMapping("/project/{projectId}/detail")
+  public String projectDetails(@PathVariable Long projectId, Model model){
+    model.addAttribute("project", projectService.findById(projectId));
+    return "project_detail";
+  }
 }

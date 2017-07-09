@@ -21,6 +21,8 @@ public class Collaborator {
   @ManyToOne
   private Role role;
 
+  public Collaborator(){};
+
   public Long getId() {
     return id;
   }
