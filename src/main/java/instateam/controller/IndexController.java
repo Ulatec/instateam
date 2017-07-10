@@ -72,4 +72,8 @@ public class IndexController {
     model.addAttribute("project", projectService.findById(projectId));
     return "project_detail";
   }
+  @RequestMapping("/roles")
+  public String roels(Model model){
+    return "roles";
+  }
 }
