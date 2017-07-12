@@ -6,20 +6,22 @@ import instateam.model.Role;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by mark on 7/9/2017.
  */
+@Repository
 public class RoleDaoImpl implements RoleDao{
     @Autowired
     private SessionFactory sessionFactory;
     @Override
     @SuppressWarnings("unchecked")
-    public List<Project> findAll() {
+    public List<Role> findAll() {
         Session session = sessionFactory.openSession();
-        List<Project> categories = session.createCriteria(Role.class).list();
+        List<Role> categories = session.createCriteria(Role.class).list();
         session.close();
         return categories;
     }

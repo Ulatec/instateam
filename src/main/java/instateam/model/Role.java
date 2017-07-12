@@ -17,8 +17,9 @@ public class Role {
   private Long id;
 
   @NotNull
-  @Pattern(regexp = "[0-9a-zA-Z]{18}")
   private String name;
+
+  public Role(){}
 
   public Long getId() {
     return id;

@@ -1,5 +1,7 @@
 package instateam.controller;
 
+import instateam.model.Role;
+import instateam.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +25,8 @@ public class IndexController {
   private ProjectService projectService;
   @Autowired
   private CollaboratorService collaboratorService;
-
+  @Autowired
+  private RoleService roleService;
   @RequestMapping("/")
   public String indexFunction(Model model){
     List<Project> projects = projectService.findAll();
@@ -73,7 +76,16 @@ public class IndexController {
     return "project_detail";
   }
   @RequestMapping("/roles")
-  public String roels(Model model){
+  public String roles(Model model){
+    if(!model.containsAttribute("role")){
+      model.addAttribute("role", new Role());
+    }
+    model.addAttribute("roles", roleService.findAll());
     return "roles";
+  }
+  @RequestMapping(value = "/roles", method=RequestMethod.POST)
+  public String newRoles(@Valid Role role, BindingResult bindingResult, RedirectAttributes attributes){
+    roleService.save(role);
+    return "redirect:/roles";
   }
 }
