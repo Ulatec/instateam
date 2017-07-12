@@ -39,6 +39,7 @@ public class IndexController {
       model.addAttribute("collaborator", new Collaborator());
     }
     model.addAttribute("collaborators", collaboratorService.findAll());
+    model.addAttribute("roles", roleService.findAll());
     return "collaborators";
   }
 

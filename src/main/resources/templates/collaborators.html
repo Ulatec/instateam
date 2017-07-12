@@ -40,13 +40,8 @@
                         <input type="text" th:field="*{name}" placeholder="Name..."/>
                         <div class="custom-select">
                             <span class="dropdown-arrow"></span>
-                            <select th:field="*{role}">
-                                <option value="#" disabled="true" selected="true">Role...</option>
-                                <option value="#">Developer</option>
-                                <option value="#">Designer</option>
-                                <option value="#">QA</option>
-                                <option value="#">DevOps</option>
-                                <option value="#">Copywriter</option>
+                            <select th:field="*{role}" th:each="role : ${roles}">
+                                <option value="#"  th:text="${role.name}">Role...</option>
                             </select>
                         </div>
                         <button type="submit" class="button" value="Save">Add</button>
