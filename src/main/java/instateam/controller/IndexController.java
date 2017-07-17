@@ -33,6 +33,7 @@ public class IndexController {
     model.addAttribute("projects", projects);
     return "index";
   }
+  //COLLABORATORS
   @RequestMapping("/collaborators")
   public String projects(Model model){
     if(!model.containsAttribute("collaborator")){
@@ -48,6 +49,14 @@ public class IndexController {
     collaboratorService.save(collaborator);
     return "redirect:/";
   }
+  @RequestMapping("/collaborators/{collaboratorId}/edit")
+  public String editCollaborator(@PathVariable Long collaboratorId, Model model){
+    if(!model.containsAttribute("collaborator")){
+      model.addAttribute("collaborator", collaboratorService.findById(collaboratorId));
+    }
+    return "edit_collaborator";
+  }
+  //PROJECTS
   @RequestMapping("/projects/add")
   public String formNewProject(Model model){
     if(!model.containsAttribute("project")){
@@ -76,6 +85,8 @@ public class IndexController {
     model.addAttribute("project", projectService.findById(projectId));
     return "project_detail";
   }
+
+  //ROLES
   @RequestMapping("/roles")
   public String roles(Model model){
     if(!model.containsAttribute("role")){
