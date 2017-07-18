@@ -18,6 +18,7 @@ public class Collaborator {
   private Long id;
   @NotNull
   private String name;
+  @NotNull
   @ManyToOne
   private Role role;
 

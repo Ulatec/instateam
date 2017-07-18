@@ -20,13 +20,17 @@ import instateam.service.ProjectService;
 
 
 @Controller
-public class IndexController {
+public class ProjectController {
+
+
   @Autowired
   private ProjectService projectService;
   @Autowired
   private CollaboratorService collaboratorService;
   @Autowired
   private RoleService roleService;
+
+
   @RequestMapping("/")
   public String indexFunction(Model model){
     List<Project> projects = projectService.findAll();
@@ -36,8 +40,8 @@ public class IndexController {
   //COLLABORATORS
   @RequestMapping("/collaborators")
   public String projects(Model model){
-    if(!model.containsAttribute("collaborator")){
-      model.addAttribute("collaborator", new Collaborator());
+    if(!model.containsAttribute("newCollaborator")){
+      model.addAttribute("newCollaborator", new Collaborator());
     }
     model.addAttribute("collaborators", collaboratorService.findAll());
     model.addAttribute("roles", roleService.findAll());
