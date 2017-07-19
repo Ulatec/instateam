@@ -33,34 +33,9 @@ public class ProjectController {
 
   @RequestMapping("/")
   public String indexFunction(Model model){
-    List<Project> projects = projectService.findAll();
-    model.addAttribute("projects", projects);
+    model.addAttribute("projects", projectService.findAll());
     return "index";
   }
-  //COLLABORATORS
-  @RequestMapping("/collaborators")
-  public String projects(Model model){
-    if(!model.containsAttribute("newCollaborator")){
-      model.addAttribute("newCollaborator", new Collaborator());
-    }
-    model.addAttribute("collaborators", collaboratorService.findAll());
-    model.addAttribute("roles", roleService.findAll());
-    return "collaborators";
-  }
-
-  @RequestMapping(value = "/collaborators", method = RequestMethod.POST)
-  public String addCollaborator(@Valid Collaborator collaborator, BindingResult bindingResult, RedirectAttributes attributes){
-    collaboratorService.save(collaborator);
-    return "redirect:/";
-  }
-  @RequestMapping("/collaborators/{collaboratorId}/edit")
-  public String editCollaborator(@PathVariable Long collaboratorId, Model model){
-    if(!model.containsAttribute("collaborator")){
-      model.addAttribute("collaborator", collaboratorService.findById(collaboratorId));
-    }
-    return "edit_collaborator";
-  }
-  //PROJECTS
   @RequestMapping("/projects/add")
   public String formNewProject(Model model){
     if(!model.containsAttribute("project")){
@@ -90,18 +65,5 @@ public class ProjectController {
     return "project_detail";
   }
 
-  //ROLES
-  @RequestMapping("/roles")
-  public String roles(Model model){
-    if(!model.containsAttribute("role")){
-      model.addAttribute("role", new Role());
-    }
-    model.addAttribute("roles", roleService.findAll());
-    return "roles";
-  }
-  @RequestMapping(value = "/roles", method=RequestMethod.POST)
-  public String newRoles(@Valid Role role, BindingResult bindingResult, RedirectAttributes attributes){
-    roleService.save(role);
-    return "redirect:/roles";
-  }
+
 }
