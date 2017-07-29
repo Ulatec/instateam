@@ -59,8 +59,7 @@ public class ProjectController {
     }
     model.addAttribute("collaborators", collaboratorService.findAll());
     model.addAttribute("submit", "Update");
-    List<Role> allRoles = roleService.findAll();
-    model.addAttribute("roles", allRoles);
+    model.addAttribute("roles", roleService.findAll());
     return "project/edit_project";
   }
   @RequestMapping("/project/{projectId}/editCollaborators")

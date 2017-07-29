@@ -1,7 +1,6 @@
 package instateam.dao;
 
 
-import instateam.model.Project;
 import instateam.model.Role;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -27,11 +26,11 @@ public class RoleDaoImpl implements RoleDao{
     }
 
     @Override
-    public Project findById(Long id) {
+    public Role findById(Long id) {
         Session session = sessionFactory.openSession();
-        Project project = session.get(Project.class, id);
+        Role role = session.get(Role.class, id);
         session.close();
-        return project;
+        return role;
     }
 
     @Override
