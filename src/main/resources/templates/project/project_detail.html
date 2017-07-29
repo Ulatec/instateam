@@ -5,16 +5,16 @@
         <header>
             <div class="container">
                 <div class="site-header">
-                    <a class="logo" href="index.html">InstaTeam</a>
+                    <a class="logo" href="../index.html">InstaTeam</a>
                     <a class="new-project button icon-left" href="#"><i class="material-icons">add</i> New Project</a>
                 </div>
             </div>
         </header>
         <nav>
             <ul>
-                <li class="selected"><a href="index.html">Projects</a></li>
-                <li><a href="collaborators.html">Collaborators</a></li>
-                <li><a href="roles.html">Roles</a></li>
+                <li class="selected"><a href="../index.html">Projects</a></li>
+                <li><a href="../collaborators.html">Collaborators</a></li>
+                <li><a href="../roles.html">Roles</a></li>
             </ul>
         </nav>
         <section>
@@ -27,26 +27,14 @@
                     </div>
                     <div class="roles-collaborators">
                         <h3>Roles &amp; Collaborators</h3>
-                        <div class="list-item">
-                            <span class="primary">Developer</span>
+                        <div class="list-item" th:each="role : ${rolesNeeded}">
+                            <span class="primary" th:text="${role.name}">Developer</span>
                             <span class="secondary">Michael Pemulis</span>
-                        </div>
-                        <div class="list-item">
-                            <span class="primary">Designer</span>
-                            <span class="secondary">Don Gately</span>
-                        </div>
-                        <div class="list-item">
-                            <span class="primary">QA</span>
-                                <span class="secondary">Joelle Van Dyne</span>
-                            </div>
-                        <div class="list-item">
-                            <span class="primary">DevOps</span>
-                            <span class="secondary">[Unassigned]</span>
                         </div>
                     </div>
                     <div class="actions">
-                        <a class="button" href="edit_project.html">Edit Project</a>
-                        <a class="button" href="project_collaborators.html">Edit Collaborators</a>
+                        <a class="button" th:href="@{|/project/${project.Id}/edit|}">Edit Project</a>
+                        <a class="button" th:href="@{|/project/${project.Id}/editCollaborators|}">Edit Collaborators</a>
                     </div>
                 </div>
             </div>

@@ -28,11 +28,11 @@ public class ProjectServiceImpl implements ProjectService {
   @Override
   public void save(Project project) {
     projectDao.save(project);
-    System.out.println("Save called");
   }
 
   @Override
   public void delete(Project project) {
     projectDao.delete(project);
   }
+
 }

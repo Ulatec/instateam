@@ -46,4 +46,5 @@ public class CollaboratorController {
         }
         return "edit_collaborator";
     }
+
 }
