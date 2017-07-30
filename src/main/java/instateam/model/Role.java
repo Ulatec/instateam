@@ -1,11 +1,10 @@
 package instateam.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mark on 6/3/2017.
@@ -18,6 +17,9 @@ public class Role {
 
   @NotNull
   private String name;
+
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "role")
+  private List<Collaborator> collaborators = new ArrayList<>();
 
   public Role(){}
 
@@ -36,5 +38,29 @@ public class Role {
   public void setName(String name) {
     this.name = name;
   }
-  
+
+  public List<Collaborator> getCollaborators() {
+    return collaborators;
+  }
+
+  public void setCollaborators(List<Collaborator> collaborators) {
+    this.collaborators = collaborators;
+  }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Role role = (Role) o;
+
+    if (id != null ? !id.equals(role.id) : role.id != null) return false;
+    return name != null ? name.equals(role.name) : role.name == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = id != null ? id.hashCode() : 0;
+    result = 31 * result + (name != null ? name.hashCode() : 0);
+    return result;
+  }
 }

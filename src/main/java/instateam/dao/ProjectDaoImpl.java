@@ -1,5 +1,6 @@
 package instateam.dao;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -31,6 +32,8 @@ public class ProjectDaoImpl implements ProjectDao{
   public Project findById(Long id) {
     Session session = sessionFactory.openSession();
     Project project = session.get(Project.class, id);
+    Hibernate.initialize(project.getCollaborators());
+    Hibernate.initialize(project.getRolesNeeded());
     session.close();
     return project;
   }

@@ -17,7 +17,7 @@ public class Project {
   @NotNull
   private String name;
 
-  @ManyToMany
+  @ManyToMany(cascade = {CascadeType.ALL})
   private List<Role> rolesNeeded = new ArrayList<>();
 
   @ManyToMany
@@ -78,4 +78,32 @@ public class Project {
     this.collaborators = collaborators;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Project)) return false;
+
+    Project project = (Project) o;
+
+    if (getId() != null ? !getId().equals(project.getId()) : project.getId() != null) return false;
+    if (getName() != null ? !getName().equals(project.getName()) : project.getName() != null) return false;
+    if (getRolesNeeded() != null ? !getRolesNeeded().equals(project.getRolesNeeded()) : project.getRolesNeeded() != null)
+      return false;
+    if (getCollaborators() != null ? !getCollaborators().equals(project.getCollaborators()) : project.getCollaborators() != null)
+      return false;
+    if (getDescription() != null ? !getDescription().equals(project.getDescription()) : project.getDescription() != null)
+      return false;
+    return getStatus() != null ? getStatus().equals(project.getStatus()) : project.getStatus() == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = getId() != null ? getId().hashCode() : 0;
+    result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+    result = 31 * result + (getRolesNeeded() != null ? getRolesNeeded().hashCode() : 0);
+    result = 31 * result + (getCollaborators() != null ? getCollaborators().hashCode() : 0);
+    result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
+    result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
+    return result;
+  }
 }

@@ -1,5 +1,6 @@
 package instateam.controller;
 
+import instateam.model.Collaborator;
 import instateam.model.Role;
 import instateam.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,10 @@ import instateam.model.Project;
 import instateam.service.CollaboratorService;
 import instateam.service.ProjectService;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -64,12 +68,11 @@ public class ProjectController {
   }
   @RequestMapping("/project/{projectId}/editCollaborators")
   public String editProjectCollaborators(@PathVariable Long projectId, Model model){
-//    if(!model.containsAttribute("project")){
-//      model.addAttribute("project", projectService.findById(projectId));
-//    }
-//    model.addAttribute("collaborators", collaboratorService.findAll());
-//    model.addAttribute("submit", "Update");
-//    model.addAttribute("roles", roleService.findAll());
+    if(!model.containsAttribute("project")){
+      model.addAttribute("project", projectService.findById(projectId));
+    }
+    model.addAttribute("roles", roleService.findAll());
+    model.addAttribute("collaborators", collaboratorService.findAll());
     return "project/project_collaborators";
   }
 
@@ -84,11 +87,53 @@ public class ProjectController {
     projectService.save(existingProject);
     return "redirect:/";
   }
+  @RequestMapping(value = "/project/{projectId}/editCollaborators", method = RequestMethod.POST)
+  public String updateCollaborators(@Valid Project project, BindingResult bindingResult){
+
+    if(bindingResult.hasErrors()) {
+
+    }else{
+      List<Role> roles = project.getRolesNeeded();
+      List<Role> newRoles = new ArrayList<>();
+      for (Role role : roles) {
+        newRoles.add(roleService.findById(role.getId()));
+      }
+      project.setRolesNeeded(newRoles);
+      Project existingProject =  projectService.findById(project.getId());
+      existingProject.setRolesNeeded(project.getRolesNeeded());
+      existingProject.setCollaborators(project.getCollaborators());
+      projectService.save(project);
+    }
+    return String.format("redirect:/project/%s/detail", project.getId());
+}
 
   @RequestMapping("/project/{projectId}/detail")
   public String projectDetails(@PathVariable Long projectId, Model model){
-    model.addAttribute("project", projectService.findById(projectId));
+    Project project = projectService.findById(projectId);
+
+    Map<Role, Collaborator> rolesAssignment = getRoleCollaboratorMap(project);
+
+    model.addAttribute("project", project);
+    model.addAttribute("rolesAssignment", rolesAssignment);
     return "project/project_detail";
   }
 
+  private Map<Role, Collaborator> getRoleCollaboratorMap(Project project) {
+    List<Role> rolesNeeded = project.getRolesNeeded();
+    List<Collaborator> collaborators = project.getCollaborators();
+    Map<Role, Collaborator> roleCollaborator = new LinkedHashMap<>();
+
+    for (Role roleNeeded : rolesNeeded) {
+      roleCollaborator.put(roleNeeded,
+              collaborators.stream()
+                      .filter((col) -> col.getRole().getId().equals(roleNeeded.getId()))
+                      .findFirst()
+                      .orElseGet(() -> {
+                        Collaborator unassigned = new Collaborator();
+                        unassigned.setName("[Unassigned]");
+                        return unassigned;
+                      }));
+    }
+    return roleCollaborator;
+  }
 }

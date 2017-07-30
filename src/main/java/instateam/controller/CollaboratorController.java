@@ -31,7 +31,7 @@ public class CollaboratorController {
         }
         model.addAttribute("collaborators", collaboratorService.findAll());
         model.addAttribute("roles", roleService.findAll());
-        return "collaborators";
+        return "/collaborator/collaborators";
     }
 
     @RequestMapping(value = "/collaborators", method = RequestMethod.POST)
@@ -44,7 +44,15 @@ public class CollaboratorController {
         if(!model.containsAttribute("collaborator")){
             model.addAttribute("collaborator", collaboratorService.findById(collaboratorId));
         }
-        return "edit_collaborator";
+        model.addAttribute("roles", roleService.findAll());
+        return "/collaborator/edit_collaborator";
     }
-
+    @RequestMapping(value = "/collaborators/{collaboratorId}/edit", method = RequestMethod.POST)
+    public String updateCollaborator(@Valid Collaborator collaborator, BindingResult bindingResult, RedirectAttributes attributes){
+        Collaborator existingCollaborator = collaboratorService.findById(collaborator.getId());
+        existingCollaborator.setName(collaborator.getName());
+        existingCollaborator.setRole(collaborator.getRole());
+        collaboratorService.save(existingCollaborator);
+        return "redirect:/collaborators";
+    }
 }

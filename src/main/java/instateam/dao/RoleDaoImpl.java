@@ -20,7 +20,7 @@ public class RoleDaoImpl implements RoleDao{
     @SuppressWarnings("unchecked")
     public List<Role> findAll() {
         Session session = sessionFactory.openSession();
-        List<Role> categories = session.createCriteria(Role.class).list();
+        List<Role> categories = session.createQuery("SELECT R FROM Role R").list();
         session.close();
         return categories;
     }
@@ -37,7 +37,7 @@ public class RoleDaoImpl implements RoleDao{
     public void save(Role role) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(role);
+        session.saveOrUpdate(role);
         session.getTransaction().commit();
         session.close();
     }

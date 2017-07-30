@@ -47,4 +47,24 @@ public class Collaborator {
   public void setRole(Role role) {
     this.role = role;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Collaborator)) return false;
+
+    Collaborator that = (Collaborator) o;
+
+    if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
+    if (getName() != null ? !getName().equals(that.getName()) : that.getName() != null) return false;
+    return getRole() != null ? getRole().equals(that.getRole()) : that.getRole() == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = getId() != null ? getId().hashCode() : 0;
+    result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+    result = 31 * result + (getRole() != null ? getRole().hashCode() : 0);
+    return result;
+  }
 }

@@ -15,6 +15,7 @@ public class CollaboratorDaoImpl implements CollaboratorDao{
   @Autowired
   private SessionFactory sessionFactory;
   @Override
+  @SuppressWarnings("unchecked")
   public List<Collaborator> findAll() {
     Session session = sessionFactory.openSession();
     List<Collaborator> collaborators = session.createCriteria(Collaborator.class).list();
@@ -34,7 +35,7 @@ public class CollaboratorDaoImpl implements CollaboratorDao{
   public void save(Collaborator collaborator) {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
-    session.save(collaborator);
+    session.saveOrUpdate(collaborator);
     session.getTransaction().commit();
     session.close();
   }

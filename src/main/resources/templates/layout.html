@@ -20,9 +20,9 @@
 </header>
 <nav th:fragment="nav">
     <ul>
-        <li class="selected"><a href="index.html">Projects</a></li>
-        <li><a href="collaborators.html">Collaborators</a></li>
-        <li><a href="roles.html">Roles</a></li>
+        <li th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'selected':''}"><a href="/">Projects</a></li>
+        <li th:classappend="${#httpServletRequest.getRequestURI() == '/collaborators' ? 'selected':''}"><a href="/collaborators">Collaborators</a></li>
+        <li th:classappend="${#httpServletRequest.getRequestURI() == '/roles' ? 'selected':''}"><a href="/roles">Roles</a></li>
     </ul>
 </nav>
 </body>
