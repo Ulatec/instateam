@@ -1,4 +1,4 @@
-package instateam.controller;
+package instateam.web.controller;
 
 import instateam.model.Collaborator;
 import instateam.service.CollaboratorService;

@@ -1,8 +1,9 @@
-package instateam.controller;
+package instateam.web.controller;
 
 import instateam.model.Collaborator;
 import instateam.model.Role;
 import instateam.service.RoleService;
+import instateam.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,10 +51,17 @@ public class ProjectController {
     return "project/edit_project";
   }
   @RequestMapping(value = "/projects/add", method = RequestMethod.POST)
-  public String addProject(@Valid Project project, BindingResult bindingResult, RedirectAttributes attributes){
-    System.out.println("save");
-    System.out.println(project.getRolesNeeded());
+  public String addProject(@Valid Project project, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+
+    if(bindingResult.hasErrors()){
+      redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.project", bindingResult);
+      redirectAttributes.addFlashAttribute("project", project);
+      redirectAttributes.addFlashAttribute("flash", new FlashMessage("IM A GAY FUK", FlashMessage.Status.SUCCESS));
+      return String.format("redirect:/projects/add");
+    }
     projectService.save(project);
+
+
     return "redirect:/";
   }
   @RequestMapping("/project/{projectId}/edit")
@@ -89,9 +97,7 @@ public class ProjectController {
   }
   @RequestMapping(value = "/project/{projectId}/editCollaborators", method = RequestMethod.POST)
   public String updateCollaborators(@Valid Project project, BindingResult bindingResult){
-
     if(bindingResult.hasErrors()) {
-
     }else{
       List<Role> roles = project.getRolesNeeded();
       List<Role> newRoles = new ArrayList<>();
@@ -122,11 +128,10 @@ public class ProjectController {
     List<Role> rolesNeeded = project.getRolesNeeded();
     List<Collaborator> collaborators = project.getCollaborators();
     Map<Role, Collaborator> roleCollaborator = new LinkedHashMap<>();
-
-    for (Role roleNeeded : rolesNeeded) {
-      roleCollaborator.put(roleNeeded,
+    for (Role role : rolesNeeded) {
+      roleCollaborator.put(role,
               collaborators.stream()
-                      .filter((col) -> col.getRole().getId().equals(roleNeeded.getId()))
+                      .filter((col) -> col.getRole().getId().equals(role.getId()))
                       .findFirst()
                       .orElseGet(() -> {
                         Collaborator unassigned = new Collaborator();

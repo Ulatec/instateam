@@ -2,6 +2,7 @@ package instateam.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class Project {
   private Long id;
 
   @NotNull
+  @Size(min=3, max=15)
   private String name;
 
   @ManyToMany(cascade = {CascadeType.ALL})
