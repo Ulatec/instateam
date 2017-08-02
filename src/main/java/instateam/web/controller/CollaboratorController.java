@@ -36,6 +36,10 @@ public class CollaboratorController {
 
     @RequestMapping(value = "/collaborators", method = RequestMethod.POST)
     public String addCollaborator(@Valid Collaborator collaborator, BindingResult bindingResult, RedirectAttributes attributes){
+        if(bindingResult.hasErrors()){
+            attributes.addFlashAttribute("org.springframework.", bindingResult);
+            attributes.addFlashAttribute("collaborator", collaborator);
+        }
         collaboratorService.save(collaborator);
         return "redirect:/";
     }

@@ -56,7 +56,7 @@ public class ProjectController {
     if(bindingResult.hasErrors()){
       redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.project", bindingResult);
       redirectAttributes.addFlashAttribute("project", project);
-//      redirectAttributes.addFlashAttribute("flash", new FlashMessage("Not Successful", FlashMessage.Status.FAILURE));
+      redirectAttributes.addFlashAttribute("flash", new FlashMessage("Not Successful", FlashMessage.Status.FAILURE));
       return String.format("redirect:/projects/add");
     }
     projectService.save(project);
@@ -85,15 +85,22 @@ public class ProjectController {
   }
 
   @RequestMapping(value = "/project/{projectId}/edit", method = RequestMethod.POST)
-  public String updateProject(@Valid Project project){
-    Project existingProject = projectService.findById(project.getId());
-    existingProject.setName(project.getName());
-    existingProject.setDescription(project.getDescription());
-    existingProject.setRolesNeeded(project.getRolesNeeded());
-    existingProject.setCollaborators(project.getCollaborators());
-    existingProject.setStatus(project.getStatus());
-    projectService.save(existingProject);
-    return "redirect:/";
+  public String updateProject(@Valid Project project, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    if(bindingResult.hasErrors()) {
+      redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.project", bindingResult);
+      redirectAttributes.addFlashAttribute("project", project);
+      return String.format("redirect:/project/%s/edit", project.getId());
+    }
+      Project existingProject = projectService.findById(project.getId());
+      existingProject.setName(project.getName());
+      existingProject.setDescription(project.getDescription());
+      existingProject.setRolesNeeded(project.getRolesNeeded());
+      existingProject.setCollaborators(project.getCollaborators());
+      existingProject.setStatus(project.getStatus());
+      projectService.save(existingProject);
+      redirectAttributes.addFlashAttribute("flash", new FlashMessage("Project successfully updated.", FlashMessage.Status.SUCCESS));
+      return "redirect:/";
+
   }
   @RequestMapping(value = "/project/{projectId}/editCollaborators", method = RequestMethod.POST)
   public String updateCollaborators(@Valid Project project, BindingResult bindingResult){
@@ -123,6 +130,8 @@ public class ProjectController {
     model.addAttribute("rolesAssignment", rolesAssignment);
     return "project/project_detail";
   }
+
+  //TODO:mbj refactor/rename any of below function
 
   private Map<Role, Collaborator> getRoleCollaboratorMap(Project project) {
     List<Role> rolesNeeded = project.getRolesNeeded();

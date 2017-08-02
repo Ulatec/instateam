@@ -2,6 +2,7 @@ package instateam.web.controller;
 
 import instateam.model.Role;
 import instateam.service.RoleService;
+import instateam.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +40,7 @@ public class RoleController {
             return "redirect:/roles";
         }
         roleService.save(role);
+        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Role successfully added.", FlashMessage.Status.SUCCESS));
         return "redirect:/roles";
     }
     @RequestMapping(value = "/roles/{roleId}/delete", method = RequestMethod.POST)
