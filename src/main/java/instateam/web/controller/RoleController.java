@@ -31,7 +31,13 @@ public class RoleController {
         return "roles";
     }
     @RequestMapping(value = "/roles", method= RequestMethod.POST)
-    public String newRoles(@Valid Role role, BindingResult bindingResult, RedirectAttributes attributes){
+    public String newRoles(@Valid Role role, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+
+        if(bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.role", bindingResult);
+            redirectAttributes.addFlashAttribute("role", role);
+            return "redirect:/roles";
+        }
         roleService.save(role);
         return "redirect:/roles";
     }

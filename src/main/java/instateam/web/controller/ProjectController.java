@@ -56,7 +56,7 @@ public class ProjectController {
     if(bindingResult.hasErrors()){
       redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.project", bindingResult);
       redirectAttributes.addFlashAttribute("project", project);
-      redirectAttributes.addFlashAttribute("flash", new FlashMessage("IM A GAY FUK", FlashMessage.Status.SUCCESS));
+//      redirectAttributes.addFlashAttribute("flash", new FlashMessage("Not Successful", FlashMessage.Status.FAILURE));
       return String.format("redirect:/projects/add");
     }
     projectService.save(project);

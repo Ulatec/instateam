@@ -26,7 +26,9 @@ public class Project {
   private List<Collaborator> collaborators = new ArrayList<>();
   
   @NotNull
+  @Size(min=3, max=255)
   private String description;
+
 
   private String status;
 

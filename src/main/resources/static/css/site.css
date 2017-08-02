@@ -476,7 +476,41 @@ form .add-new-collaborator .button {
 	margin: 0;
 }
 
+/* ERROR */
 
+.error input {
+	border-width: 2px;
+	border-color: #ac4343;
+	border-bottom: none;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.error .error-message {
+	border: 2px solid #ac4343;
+	border-radius: 0 0 6px 6px;
+	background-color: #ac4343;
+	color: rgb(254,251,251);
+	padding: 10px;
+}
+.file-wrapper.error {
+	border-width: 2px;
+	border-color: #ac4343;
+}
+
+.file-wrapper.error .error-message {
+	border-radius: 0;
+}
+
+.error:not(.file-wrapper) {
+	display: flex;
+	display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+	display: -ms-flexbox;      /* TWEENER - IE 10 */
+	display: -webkit-flex;
+	flex-direction: column;
+	-webkit-flex-direction: column;
+}
 
 
 

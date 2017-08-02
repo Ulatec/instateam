@@ -3,6 +3,7 @@ package instateam.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class Role {
   private Long id;
 
   @NotNull
+  @Size(min=2, max=30)
   private String name;
 
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "role")

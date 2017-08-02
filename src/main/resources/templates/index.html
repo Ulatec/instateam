@@ -15,7 +15,7 @@
                     <div class="project">
                         <h2><a th:href="@{|/project/${project.Id}/detail|}" th:text="${project.name}">Website Project</a></h2>
                         <p th:text="${project.description}">Design and build a custom website</p>
-                        <span th:class="tag" th:classappend="${#strings.toLowerCase(project.status)}" th:text="${#strings.toUpperCase(project.status).replace('_', ' ')}">Active</span>
+                        <!--<span th:class="tag" th:classappend="${#strings.toLowerCase(project.status)}" th:text="${#strings.toUpperCase(project.status).replace('_', ' ')}">Active</span>-->
                     </div>
                 </div>
             </div>
