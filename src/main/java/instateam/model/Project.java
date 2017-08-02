@@ -16,7 +16,7 @@ public class Project {
   private Long id;
 
   @NotNull
-  @Size(min=3, max=15)
+  @Size(min=3, max=25)
   private String name;
 
   @ManyToMany(cascade = {CascadeType.ALL})
@@ -26,7 +26,6 @@ public class Project {
   private List<Collaborator> collaborators = new ArrayList<>();
   
   @NotNull
-  @Size(min=3, max=255)
   private String description;
 
 

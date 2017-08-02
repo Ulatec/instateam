@@ -3,6 +3,7 @@ package instateam.web.controller;
 import instateam.model.Collaborator;
 import instateam.service.CollaboratorService;
 import instateam.service.RoleService;
+import instateam.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,10 +54,17 @@ public class CollaboratorController {
     }
     @RequestMapping(value = "/collaborators/{collaboratorId}/edit", method = RequestMethod.POST)
     public String updateCollaborator(@Valid Collaborator collaborator, BindingResult bindingResult, RedirectAttributes attributes){
+        if(bindingResult.hasErrors()){
+            attributes.addFlashAttribute("org.springframework.validation.BindingResult.collaborator", bindingResult);
+            attributes.addFlashAttribute("collaborator", collaborator);
+            attributes.addFlashAttribute("flash", new FlashMessage("Not Successful", FlashMessage.Status.FAILURE));
+            return String.format("redirect:/collaborators/%s/edit", collaborator.getId());
+        }
         Collaborator existingCollaborator = collaboratorService.findById(collaborator.getId());
         existingCollaborator.setName(collaborator.getName());
         existingCollaborator.setRole(collaborator.getRole());
         collaboratorService.save(existingCollaborator);
+        attributes.addFlashAttribute("flash", new FlashMessage("Collaborator successfuly updated.", FlashMessage.Status.SUCCESS));
         return "redirect:/collaborators";
     }
 }

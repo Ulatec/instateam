@@ -43,9 +43,17 @@ public class RoleController {
         redirectAttributes.addFlashAttribute("flash", new FlashMessage("Role successfully added.", FlashMessage.Status.SUCCESS));
         return "redirect:/roles";
     }
+
     @RequestMapping(value = "/roles/{roleId}/delete", method = RequestMethod.POST)
-    public String deleteRole(@PathVariable Long roleId){
+    public String deleteRole(@PathVariable Long roleId, RedirectAttributes redirectAttributes) {
+        //TODO:mbj check for any associations to role before delete. return error message that role isn't empty.
+//        if(cat.getGifs().size() > 0){
+//            redirectAtributes.addFlashAttribute("flash", new FlashMessage("Only empty categories may be deleted", FlashMessage.Status.FAILURE));
+//            return String.format("redirect:/categories/%s/edit", categoryId);
+//        }
+//
         roleService.delete(roleService.findById(roleId));
+        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Category deleted!", FlashMessage.Status.SUCCESS));
         return "redirect:/roles";
     }
 }
