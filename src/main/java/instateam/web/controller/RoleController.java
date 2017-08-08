@@ -29,7 +29,7 @@ public class RoleController {
             model.addAttribute("role", new Role());
         }
         model.addAttribute("roles", roleService.findAll());
-        return "roles";
+        return "/role/roles";
     }
     @RequestMapping(value = "/roles", method= RequestMethod.POST)
     public String newRoles(@Valid Role role, BindingResult bindingResult, RedirectAttributes redirectAttributes){
@@ -44,16 +44,23 @@ public class RoleController {
         return "redirect:/roles";
     }
 
-    @RequestMapping(value = "/roles/{roleId}/delete", method = RequestMethod.POST)
-    public String deleteRole(@PathVariable Long roleId, RedirectAttributes redirectAttributes) {
-        //TODO:mbj check for any associations to role before delete. return error message that role isn't empty.
-//        if(cat.getGifs().size() > 0){
-//            redirectAtributes.addFlashAttribute("flash", new FlashMessage("Only empty categories may be deleted", FlashMessage.Status.FAILURE));
-//            return String.format("redirect:/categories/%s/edit", categoryId);
-//        }
-//
-        roleService.delete(roleService.findById(roleId));
-        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Category deleted!", FlashMessage.Status.SUCCESS));
+    @RequestMapping(value = "/roles/{roleId}/edit", method = RequestMethod.POST)
+    public String updateRole(@Valid Role role, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if(bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.role", bindingResult);
+            redirectAttributes.addFlashAttribute("role", role);
+            return String.format("redirect:/roles/%s/detail", role.getId());
+        }
+        Role existingRole = roleService.findById(role.getId());
+        existingRole.setName(role.getName());
+        roleService.save(existingRole);
+        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Role Updated!", FlashMessage.Status.SUCCESS));
         return "redirect:/roles";
+    }
+    @RequestMapping("/roles/{roleId}/detail")
+    public String roleDetail(@PathVariable Long roleId, Model model){
+        model.addAttribute("role", roleService.findById(roleId));
+        model.addAttribute("title", "Edit " + roleService.findById(roleId).getName());
+        return "/role/detail";
     }
 }

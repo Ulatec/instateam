@@ -4,6 +4,7 @@ import instateam.model.Collaborator;
 import instateam.model.Role;
 import instateam.service.RoleService;
 import instateam.web.FlashMessage;
+import instateam.web.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,6 +73,7 @@ public class ProjectController {
     model.addAttribute("collaborators", collaboratorService.findAll());
     model.addAttribute("submit", "Update");
     model.addAttribute("roles", roleService.findAll());
+    model.addAttribute("statuses", Status.values());
     return "project/edit_project";
   }
   @RequestMapping("/project/{projectId}/editCollaborators")

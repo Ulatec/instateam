@@ -12,10 +12,6 @@
         <section>
             <div class="container wrapper">
                 <form method="post" th:object="${project}">
-                    <!--<div th:classappend="${#fields.hasErrors('name')}? 'error' : ''">-->
-                        <!--<input  type="text" th:field="*{name}" placeholder="Category Name"/>-->
-                        <!--<div class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>-->
-                    <!--</div>-->
                     <div th:classappend="${#fields.hasErrors('name')}? 'error' : ''">
                         <input type="hidden" th:field="*{id}"/>
                         <ul style="display: none">
@@ -37,9 +33,7 @@
                         <div class="custom-select">
                         <span class="dropdown-arrow"></span>
                             <select th:field="*{status}" name="project_status">
-                                <option th:classappend="${#strings.toLowerCase(project.status)}" value="active">Active</option>
-                                <option th:classappend="${#strings.toLowerCase(project.status)}" value="archived">Archived</option>
-                                <option th:classappend="${#strings.toLowerCase(project.status)}" value="not_started">Not Started</option>
+                                <option th:each="status : ${statuses}"  th:value="${status.name}" th:text="${status.name}">Active</option>
                             </select>
                         </div>
                     </div>
