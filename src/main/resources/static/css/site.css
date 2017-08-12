@@ -312,8 +312,7 @@ strong {
   line-height: normal;
   font-family: inherit;
   font-size: inherit;
-  line-height: inherit;
-  width: 100%;
+	width: 100%;
 }
 .custom-select .dropdown-arrow {
   background: #FFF;

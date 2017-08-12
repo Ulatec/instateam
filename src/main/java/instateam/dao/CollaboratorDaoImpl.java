@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 public class CollaboratorDaoImpl implements CollaboratorDao{
   @Autowired
   private SessionFactory sessionFactory;
+
+  //TODO:mbj use current API rather than deprecated API.
   @Override
   @SuppressWarnings("unchecked")
   public List<Collaborator> findAll() {
@@ -40,6 +42,6 @@ public class CollaboratorDaoImpl implements CollaboratorDao{
 
   @Override
   public void delete(Collaborator collaborator) {
-
+    //TODO:mbj implmentation of deleting collaborators and respective associations.
   }
 }

@@ -4,7 +4,7 @@ package instateam.web;
         NOT_STARTED("Not started"),
         ACTIVE("Active"),
         ARCHIVED("Archived");
-    private String name;
+    private final String name;
 
     Status(String name){
         this.name = name;

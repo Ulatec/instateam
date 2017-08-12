@@ -15,7 +15,8 @@
             <h2 th:text="${title}">Edit Role</h2>
             <input type="hidden" th:field="*{id}"/>
             <div th:classappend="${#fields.hasErrors('name')}? 'error' : ''">
-                <input type="text" th:field="*{name}" placeholder="Edit Role"/>
+                <label for="role_name">Role name:</label>
+                <input type="text" th:field="*{name}" name="role_name" placeholder="Edit Role"/>
                 <div class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
             </div>
             <div class="actions">

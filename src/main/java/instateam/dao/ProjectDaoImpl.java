@@ -16,6 +16,8 @@ public class ProjectDaoImpl implements ProjectDao{
 
   @Autowired
   private SessionFactory sessionFactory;
+
+  //TODO:mbj use current API rather than deprecated API.
   @Override
   @SuppressWarnings("unchecked")
   public List<Project> findAll() {
