@@ -7,9 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-/**
- * Created by mark on 6/6/2017.
- */
+
 @Repository
 public class CollaboratorDaoImpl implements CollaboratorDao{
   @Autowired

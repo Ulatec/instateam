@@ -9,9 +9,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
-/**
- * Created by mark on 5/31/2017.
- */
 @Entity
 public class Collaborator {
   @Id

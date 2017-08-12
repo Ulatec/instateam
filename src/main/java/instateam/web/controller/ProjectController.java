@@ -3,7 +3,6 @@ package instateam.web.controller;
 import instateam.model.Collaborator;
 import instateam.model.Role;
 import instateam.service.RoleService;
-import instateam.web.FlashMessage;
 import instateam.web.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,12 +35,14 @@ public class ProjectController {
   @Autowired
   private RoleService roleService;
 
-
+  // LIST ALL PROJECTS / INDEX PAGE
   @RequestMapping("/")
   public String indexFunction(Model model){
     model.addAttribute("projects", projectService.findAll());
     return "index";
   }
+
+  // ADD NEW PROJECT FORM
   @RequestMapping("/projects/add")
   public String formNewProject(Model model){
     if(!model.containsAttribute("project")){
@@ -51,20 +52,23 @@ public class ProjectController {
     model.addAttribute("roles", roleService.findAll());
     return "project/edit_project";
   }
+
+  // ADD NEW PROJECT
   @RequestMapping(value = "/projects/add", method = RequestMethod.POST)
   public String addProject(@Valid Project project, BindingResult bindingResult, RedirectAttributes redirectAttributes){
 
     if(bindingResult.hasErrors()){
       redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.project", bindingResult);
       redirectAttributes.addFlashAttribute("project", project);
-      redirectAttributes.addFlashAttribute("flash", new FlashMessage("Not Successful", FlashMessage.Status.FAILURE));
-      return String.format("redirect:/projects/add");
+      return "redirect:/projects/add";
     }
     projectService.save(project);
 
 
     return "redirect:/";
   }
+
+  // EDIT PROJECT DETAILS
   @RequestMapping("/project/{projectId}/edit")
   public String editProject(@PathVariable Long projectId, Model model){
     if(!model.containsAttribute("project")){
@@ -76,6 +80,8 @@ public class ProjectController {
     model.addAttribute("statuses", Status.values());
     return "project/edit_project";
   }
+
+  // EDIT PROJECT COLLABORATORS
   @RequestMapping("/project/{projectId}/editCollaborators")
   public String editProjectCollaborators(@PathVariable Long projectId, Model model){
     if(!model.containsAttribute("project")){
@@ -86,6 +92,7 @@ public class ProjectController {
     return "project/project_collaborators";
   }
 
+  // SAVE CHANGES TO PROJECT
   @RequestMapping(value = "/project/{projectId}/edit", method = RequestMethod.POST)
   public String updateProject(@Valid Project project, BindingResult bindingResult, RedirectAttributes redirectAttributes){
     if(bindingResult.hasErrors()) {
@@ -100,10 +107,10 @@ public class ProjectController {
       existingProject.setCollaborators(project.getCollaborators());
       existingProject.setStatus(project.getStatus());
       projectService.save(existingProject);
-      redirectAttributes.addFlashAttribute("flash", new FlashMessage("Project successfully updated.", FlashMessage.Status.SUCCESS));
       return "redirect:/";
-
   }
+
+  // SAVE CHANGES TO PROJECT COLLABORATORS
   @RequestMapping(value = "/project/{projectId}/editCollaborators", method = RequestMethod.POST)
   public String updateCollaborators(@Valid Project project, BindingResult bindingResult){
     if(bindingResult.hasErrors()) {
@@ -121,7 +128,7 @@ public class ProjectController {
     }
     return String.format("redirect:/project/%s/detail", project.getId());
 }
-
+  // GET PROJECT DETAILS
   @RequestMapping("/project/{projectId}/detail")
   public String projectDetails(@PathVariable Long projectId, Model model){
     Project project = projectService.findById(projectId);
@@ -133,8 +140,7 @@ public class ProjectController {
     return "project/project_detail";
   }
 
-  //TODO:mbj refactor/rename any of below function
-
+  // BUILD MAP OF ROLES WITH CORRESPONDING COLLABORATORS
   private Map<Role, Collaborator> getRoleCollaboratorMap(Project project) {
     List<Role> rolesNeeded = project.getRolesNeeded();
     List<Collaborator> collaborators = project.getCollaborators();

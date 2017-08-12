@@ -9,9 +9,7 @@ import instateam.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by mark on 6/3/2017.
- */
+
 @Service
 public class ProjectServiceImpl implements ProjectService {
   @Autowired

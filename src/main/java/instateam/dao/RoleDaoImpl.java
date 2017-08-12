@@ -9,9 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Created by mark on 7/9/2017.
- */
+
 @Repository
 public class RoleDaoImpl implements RoleDao{
     @Autowired

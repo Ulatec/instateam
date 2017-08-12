@@ -7,9 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by mark on 7/9/2017.
- */
 @Service
 public class RoleServiceImpl implements RoleService{
 

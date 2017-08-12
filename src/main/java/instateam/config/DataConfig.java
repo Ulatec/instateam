@@ -12,9 +12,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 import javax.sql.DataSource;
 
-/**
- * Created by mark on 5/11/2017.
- */
+
 @Configuration
 @PropertySource("app.properties")
 public class DataConfig {

@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by mark on 6/25/2017.
- */
+
 @Service
 public class CollaboratorServiceImpl implements CollaboratorService{
     @Autowired

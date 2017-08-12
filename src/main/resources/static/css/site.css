@@ -367,7 +367,7 @@ form textarea {
 	border: 2px solid #e1e0e0;
 	font-size: 18px;
 	padding: 4px 13px;
-	margin-bottom: 30px;
+	margin-bottom: 0;
 	border-radius: 4px;
 	width: calc(100% - 32px);
 	line-height: 1.8em;
@@ -449,12 +449,37 @@ form .add-new-collaborator .button {
 
 /* ERROR */
 
-.error input {
+form .error input {
 	border-width: 2px;
 	border-color: #ac4343;
 	border-bottom: none;
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
+	margin-bottom: 0;
+
+}
+form .error button {
+	width: 15%;
+}
+
+.error .collaborator-error-message {
+	border: 2px solid #ac4343;
+	border-radius: 0 0 6px 6px;
+	background-color: #ac4343;
+	color: rgb(254,251,251);
+	padding: 4px 13px;
+	width: calc(100% - 415px);
+	margin-bottom: 1rem;
+	display: inline;
+}
+.error .select-error-message {
+	border: 2px solid #ac4343;
+	border-radius: 0 0 6px 6px;
+	background-color: #ac4343;
+	color: rgb(254,251,251);
+	padding: 4px 13px;
+	width: calc(100% - 415px);
+	margin-bottom: 1rem;
 }
 
 .error .error-message {
@@ -462,7 +487,8 @@ form .add-new-collaborator .button {
 	border-radius: 0 0 6px 6px;
 	background-color: #ac4343;
 	color: rgb(254,251,251);
-	padding: 10px;
+	padding: 4px 13px;
+	width: calc(100% - 62px);
 }
 .file-wrapper.error {
 	border-width: 2px;
@@ -483,26 +509,17 @@ form .add-new-collaborator .button {
 	-webkit-flex-direction: column;
 }
 
-/* FLASH MESSAGES */
-
-
-/*TODO:mbj modify flash styling below*/
-
-.flash {
-	margin-top: 2rem;
-	margin-bottom: 2rem;
-	padding: 1rem 2rem;
-	border-radius: 4px;
-	font-size: 1.1rem;
-}
-
-.flash.success {
-	background-color: #7f9e40;
-	color: #f3f6ee;
-}
-
-.flash.failure {
-	background-color: #ac4343;
-	color: #f2e2e2;
+input[type=text] {
+	display: block;
+	border: 1px solid #dad7de;
+	border-radius: 6px;
+	background: #f7f5fa;
+	padding: 1rem;
+	font-size: 1.2rem;
+	line-height: 1.5;
+	height: initial;
+	box-sizing: border-box;
+	margin-bottom: 0;
+	color: #7a7580;
 }
 

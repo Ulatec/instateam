@@ -7,9 +7,6 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by mark on 6/3/2017.
- */
 @Entity
 public class Role {
   @Id

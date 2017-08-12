@@ -11,9 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.criteria.CriteriaBuilder;
 
-/**
- * Created by mark on 5/31/2017.
- */
 @Repository
 public class ProjectDaoImpl implements ProjectDao{
 

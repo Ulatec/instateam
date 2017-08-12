@@ -49,7 +49,7 @@
                     <div class="actions">
                         <button type="submit" class="button" value="Save" th:text="${submit}">Add</button>
                         <input type="submit" value="Save" class="button"/>
-                        <a href="#" class="button button-secondary">Cancel</a>
+                        <a th:href="@{|/project/${project.id}/detail|}" class="button button-secondary">Cancel</a>
                     </div>
                 </form>
             </div>

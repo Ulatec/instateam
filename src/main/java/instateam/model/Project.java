@@ -6,9 +6,6 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by mark on 5/31/2017.
- */
 @Entity
 public class Project {
   @Id

@@ -3,7 +3,6 @@ package instateam.web.controller;
 import instateam.model.Collaborator;
 import instateam.service.CollaboratorService;
 import instateam.service.RoleService;
-import instateam.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
-/**
- * Created by mark on 7/18/2017.
- */
+
 @Controller
 public class CollaboratorController {
     @Autowired
@@ -25,25 +22,29 @@ public class CollaboratorController {
     @Autowired
     private RoleService roleService;
 
+    // LIST ALL COLLABORATORS
     @RequestMapping("/collaborators")
     public String projects(Model model){
-        if(!model.containsAttribute("newCollaborator")){
-            model.addAttribute("newCollaborator", new Collaborator());
+        if(!model.containsAttribute("collaborator")){
+            model.addAttribute("collaborator", new Collaborator());
         }
         model.addAttribute("collaborators", collaboratorService.findAll());
         model.addAttribute("roles", roleService.findAll());
         return "/collaborator/collaborators";
     }
-
+    // ADD NEW COLLABORATOR
     @RequestMapping(value = "/collaborators", method = RequestMethod.POST)
     public String addCollaborator(@Valid Collaborator collaborator, BindingResult bindingResult, RedirectAttributes attributes){
         if(bindingResult.hasErrors()){
-            attributes.addFlashAttribute("org.springframework.", bindingResult);
+            attributes.addFlashAttribute("org.springframework.validation.BindingResult.collaborator", bindingResult);
             attributes.addFlashAttribute("collaborator", collaborator);
+            return "redirect:/collaborators";
         }
         collaboratorService.save(collaborator);
-        return "redirect:/";
+        return "redirect:/collaborators";
     }
+
+    // GET DETAILS/EDIT COLLABORATOR
     @RequestMapping("/collaborators/{collaboratorId}/edit")
     public String editCollaborator(@PathVariable Long collaboratorId, Model model){
         if(!model.containsAttribute("collaborator")){
@@ -52,19 +53,19 @@ public class CollaboratorController {
         model.addAttribute("roles", roleService.findAll());
         return "/collaborator/edit_collaborator";
     }
+
+    // EDIT/SAVE CHANGES TO COLLABORATOR
     @RequestMapping(value = "/collaborators/{collaboratorId}/edit", method = RequestMethod.POST)
     public String updateCollaborator(@Valid Collaborator collaborator, BindingResult bindingResult, RedirectAttributes attributes){
         if(bindingResult.hasErrors()){
             attributes.addFlashAttribute("org.springframework.validation.BindingResult.collaborator", bindingResult);
             attributes.addFlashAttribute("collaborator", collaborator);
-            attributes.addFlashAttribute("flash", new FlashMessage("Not Successful", FlashMessage.Status.FAILURE));
             return String.format("redirect:/collaborators/%s/edit", collaborator.getId());
         }
         Collaborator existingCollaborator = collaboratorService.findById(collaborator.getId());
         existingCollaborator.setName(collaborator.getName());
         existingCollaborator.setRole(collaborator.getRole());
         collaboratorService.save(existingCollaborator);
-        attributes.addFlashAttribute("flash", new FlashMessage("Collaborator successfuly updated.", FlashMessage.Status.SUCCESS));
         return "redirect:/collaborators";
     }
 }

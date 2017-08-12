@@ -2,7 +2,6 @@ package instateam.web.controller;
 
 import instateam.model.Role;
 import instateam.service.RoleService;
-import instateam.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,15 +13,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
-/**
- * Created by mark on 7/18/2017.
- */
+
 @Controller
 public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    //ROLES
+    //LIST ALL ROLES
     @RequestMapping("/roles")
     public String roles(Model model){
         if(!model.containsAttribute("role")){
@@ -31,6 +28,8 @@ public class RoleController {
         model.addAttribute("roles", roleService.findAll());
         return "/role/roles";
     }
+
+    //ADD NEW ROLE
     @RequestMapping(value = "/roles", method= RequestMethod.POST)
     public String newRoles(@Valid Role role, BindingResult bindingResult, RedirectAttributes redirectAttributes){
 
@@ -40,11 +39,11 @@ public class RoleController {
             return "redirect:/roles";
         }
         roleService.save(role);
-        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Role successfully added.", FlashMessage.Status.SUCCESS));
         return "redirect:/roles";
     }
 
-    @RequestMapping(value = "/roles/{roleId}/edit", method = RequestMethod.POST)
+    //UPDATE ROLE DETAILS
+    @RequestMapping(value = "/roles/{roleId}/detail", method = RequestMethod.POST)
     public String updateRole(@Valid Role role, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if(bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.role", bindingResult);
@@ -54,12 +53,15 @@ public class RoleController {
         Role existingRole = roleService.findById(role.getId());
         existingRole.setName(role.getName());
         roleService.save(existingRole);
-        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Role Updated!", FlashMessage.Status.SUCCESS));
         return "redirect:/roles";
     }
+
+    //GET ROLE DETAILS
     @RequestMapping("/roles/{roleId}/detail")
     public String roleDetail(@PathVariable Long roleId, Model model){
-        model.addAttribute("role", roleService.findById(roleId));
+        if(!model.containsAttribute("role")){
+            model.addAttribute("role", roleService.findById(roleId));
+        }
         model.addAttribute("title", "Edit " + roleService.findById(roleId).getName());
         return "/role/detail";
     }
