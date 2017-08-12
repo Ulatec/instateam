@@ -107,7 +107,7 @@ public class ProjectController {
       existingProject.setCollaborators(project.getCollaborators());
       existingProject.setStatus(project.getStatus());
       projectService.save(existingProject);
-      return "redirect:/";
+      return String.format("redirect:/project/%s/details", project.getId());
   }
 
   // SAVE CHANGES TO PROJECT COLLABORATORS
